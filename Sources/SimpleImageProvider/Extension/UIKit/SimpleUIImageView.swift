@@ -11,7 +11,7 @@ public class SimpleUIImageView: @unchecked Sendable {
     
     private weak var imageView: UIImageView?
     
-    private init(view: UIImageView) {
+    init(view: UIImageView) {
         self.imageView = view
     }
     
