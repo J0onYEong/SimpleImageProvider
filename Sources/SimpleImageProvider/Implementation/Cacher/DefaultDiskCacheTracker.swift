@@ -12,9 +12,9 @@ final class DefaultDiskCacheTracker: DiskCacheTracker {
     typealias Key = String
     typealias Value = Date
     
-    private let maxCount: Int
+    private var maxCount: Int
     
-    init(maxCount: Int) {
+    init(maxCount: Int = 30) {
         self.maxCount = maxCount
     }
     
@@ -30,6 +30,11 @@ final class DefaultDiskCacheTracker: DiskCacheTracker {
         
         return [:]
     }()
+    
+    func clearStore() {
+        source.removeObject(forKey: dictKey)
+    }
+    
     private let dictManagementQueue: DispatchQueue = .init(
         label: "com.DefaultDiskCacheTracker.dict",
         attributes: .concurrent

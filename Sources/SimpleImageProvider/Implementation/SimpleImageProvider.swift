@@ -19,7 +19,7 @@ public final class SimpleImageProvider: SimpleImageProviderInterface {
     
     init(
         memoryCacher: ImageCacher = MemeoryCacher(),
-        diskCacher: ImageCacher = DiskCacher(),
+        diskCacher: ImageCacher = DiskCacher(diskCacheTracker: DefaultDiskCacheTracker()),
         imageDownloader: ImageDownloader = DefaultImageDownloader()
     ) {
         self.memoryCacher = memoryCacher

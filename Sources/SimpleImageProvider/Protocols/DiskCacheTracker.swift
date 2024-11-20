@@ -10,6 +10,8 @@ protocol DiskCacheTracker {
     associatedtype Key: Hashable
     associatedtype Value
     
+    func clearStore()
+    
     func requestCheckDiskIsFull() -> Bool
     
     func requestOldestMembers(count: Int) -> [Key]

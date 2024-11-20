@@ -15,12 +15,23 @@ final class DiskCacher: @unchecked Sendable, ImageCacher {
         attributes: .concurrent
     )
     
-    private let maxFileCount: Int = 30
+    private let maxFileCount: Int
+    private let fileCountForDeleteWhenOverflow: Int
     
-    private lazy var diskCacheTracker: DefaultDiskCacheTracker = .init(maxCount: maxFileCount)
+    private let diskCacheTracker: DefaultDiskCacheTracker
     
     
-    init() { }
+    init(
+        diskCacheTracker: DefaultDiskCacheTracker,
+        maxFileCount: Int = 30,
+        fileCountForDeleteWhenOverflow: Int = 10
+    ) {
+        self.diskCacheTracker = diskCacheTracker
+        self.maxFileCount = maxFileCount
+        self.fileCountForDeleteWhenOverflow = fileCountForDeleteWhenOverflow
+        
+        createCacheDirectory()
+    }
     
     
     // MARK: public responsibility
@@ -49,6 +60,33 @@ final class DiskCacher: @unchecked Sendable, ImageCacher {
 }
 
 private extension DiskCacher {
+    
+    func createCacheDirectory() {
+        
+        concurrentQueue.async(flags: .barrier) { [weak self] in
+                
+            guard let self else { return }
+            
+            guard var cacheDictionaryPath = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+                
+                fatalError()
+            }
+            
+            cacheDictionaryPath = cacheDictionaryPath.appendingPathComponent("CachedDiskImage")
+            
+            if !fileManager.fileExists(atPath: cacheDictionaryPath.path) {
+                
+                do {
+                    
+                    try fileManager.createDirectory(at: cacheDictionaryPath, withIntermediateDirectories: true)
+                    
+                } catch {
+                    log("캐싱 디렉토리 생성실패 \(error.localizedDescription)")
+                    fatalError()
+                }
+            }
+        }
+    }
 
     func getImage(path: String) -> UIImage? {
         
@@ -85,37 +123,21 @@ private extension DiskCacher {
     
     func createImagePath(key: String) -> URL? {
         
-        concurrentQueue.sync(flags: .barrier) {
-            
-            guard let cacheDictionaryPath = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-                log("\(#function) \(key) 이미지 경로 생성 실패")
-                return nil
-            }
-            
-            let imageDirectoryPath = cacheDictionaryPath.appendingPathComponent("CachedDiskImage")
-            
-            if !fileManager.fileExists(atPath: imageDirectoryPath.path) {
-                    
-                // 이미지 캐싱 딕셔너리가 없는 경우 딕셔너리를 생성
-                
-                do {
-                    try fileManager
-                        .createDirectory(
-                            at: imageDirectoryPath,
-                            withIntermediateDirectories: true
-                        )
-                } catch {
-                    log("\(#function) 이미지 캐싱 디렉토리 생성 실패 \(error.localizedDescription)")
-                    return nil
-                }
-            }
-            
-            let imageFileURL = imageDirectoryPath
-                .appendingPathComponent(createSafeFileName(draft: key))
-            
-            return imageFileURL
+        guard let cacheDictionaryPath = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            log("\(#function) \(key) 이미지 경로 생성 실패")
+            return nil
         }
+        
+        let imageDirectoryPath = cacheDictionaryPath.appendingPathComponent("CachedDiskImage")
+        
+        let imageFileName = createSafeFileName(draft: key)
+        
+        let imageFileURL = imageDirectoryPath
+            .appendingPathComponent(imageFileName)
+        
+        return imageFileURL
     }
+    
     
     func createSafeFileName(draft: String) -> String {
         
@@ -162,11 +184,13 @@ private extension DiskCacher {
             
             if diskCacheTracker.requestCheckDiskIsFull() {
                 
-                log("디스크 파일수가 50개를 초과하였음 삭제실행")
+                log("디스크 파일수가 \(maxFileCount)개를 초과하였음 삭제실행")
                 
                 // 이미지 파일 삭제
                 
-                let willRemoveList = diskCacheTracker.requestOldestMembers(count: 10)
+                let willRemoveList = diskCacheTracker.requestOldestMembers(
+                    count: fileCountForDeleteWhenOverflow
+                )
                 
                 
                 willRemoveList.forEach { willRemoveKey in
@@ -189,17 +213,17 @@ private extension DiskCacher {
                         log("\(stringPath) 파일이 존재하지 않음")
                     }
                 }
-            } else {
-                
-                // 이미지 파일 생성
-                let imageFileCreationResult = fileManager.createFile(atPath: imageFilePath.path, contents: image.pngData())
-                
-                if imageFileCreationResult == true {
-                    
-                    diskCacheTracker.requestCreateMember(id: key, value: .now)
-                }
-                log("디스크에 이미지 생성 \(imageFileCreationResult ? "성공" : "실패") 경로: \(imageFilePath)")
             }
+            
+            // 공간확보후 이미지 파일 생성
+            
+            let imageFileCreationResult = fileManager.createFile(atPath: imageFilePath.path, contents: image.pngData())
+            
+            if imageFileCreationResult == true {
+                
+                diskCacheTracker.requestCreateMember(id: key, value: .now)
+            }
+            log("디스크에 이미지 생성 \(imageFileCreationResult ? "성공" : "실패") 경로: \(imageFilePath)")
         }
     }
 }
