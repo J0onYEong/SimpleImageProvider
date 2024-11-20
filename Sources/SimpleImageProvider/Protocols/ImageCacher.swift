@@ -9,7 +9,7 @@ import UIKit
 
 protocol ImageCacher {
     
-    func requestImage(url: String) async -> UIImage?
+    func requestImage(url: String, size: CGSize?) async -> UIImage?
     
-    func cacheImage(url: String, image: UIImage)
+    func cacheImage(url: String, size: CGSize?, image: UIImage)
 }
