@@ -9,5 +9,5 @@ import Foundation
 
 protocol ImageDownloader {
     
-    func requestImage(url: String) async -> Data
+    func requestImage(url: String) async -> Data?
 }
