@@ -75,9 +75,9 @@ class DefaultDiskCacheTracker: DiskCacheTracker {
     }
     
     func requestDeleteMember(id: String) {
-        _ = dictManagementQueue.sync(flags: .barrier) {
-            
+        dictManagementQueue.sync(flags: .barrier) {
             currentDict.removeValue(forKey: id)
+            saveCurrentDict()
         }
     }
     

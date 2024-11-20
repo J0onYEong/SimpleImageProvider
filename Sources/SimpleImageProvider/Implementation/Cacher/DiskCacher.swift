@@ -7,15 +7,22 @@
 
 import UIKit
 
-final class DiskCacher: ImageCacher {
+
+final class DiskCacher: @unchecked Sendable, ImageCacher {
     
     private let fileManager: FileManager = .init()
-    private let serialQueue: DispatchQueue = .init(
+    private let concurrentQueue: DispatchQueue = .init(
         label: "com.DiskCacher",
         attributes: .concurrent
     )
     
     private let maxFileCount: Int = 30
+    
+    private lazy var diskCacheTracker: DefaultDiskCacheTracker = .init(maxCount: maxFileCount)
+    
+    
+    init() { }
+    
     
     // MARK: public responsibility
     func requestImage(url: String, size: CGSize?) async -> UIImage? {
@@ -29,6 +36,8 @@ final class DiskCacher: ImageCacher {
         
         let image = getImage(path: imageFilePath.path)
         
+        diskCacheTracker.requestUpdateMember(id: key, value: .now)
+        
         return image
     }
     
@@ -36,10 +45,7 @@ final class DiskCacher: ImageCacher {
         
         let key = createKey(url: url, size: size)
         
-        guard let imageFilePath = createImagePath(key: key) else {
-            log("\(#function) 이미지 경로 생성 실패")
-            return
-        }
+        cacheImageFileToDisk(key: key, image: image)
     }
 }
 
@@ -47,7 +53,7 @@ extension DiskCacher {
 
     func getImage(path: String) -> UIImage? {
         
-        serialQueue.sync {
+        concurrentQueue.sync {
             
             guard let data = fileManager.contents(atPath: path) else {
                 
@@ -80,7 +86,7 @@ extension DiskCacher {
     
     func createImagePath(key: String) -> URL? {
         
-        serialQueue.sync(flags: .barrier) {
+        concurrentQueue.sync(flags: .barrier) {
             
             guard let cacheDictionaryPath = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
                 log("\(#function) \(key) 이미지 경로 생성 실패")
@@ -141,5 +147,62 @@ extension DiskCacher {
         }
 
         return safeFileName
+    }
+    
+    
+    func cacheImageFileToDisk(key: String, image: UIImage) {
+        
+        guard let imageFilePath = createImagePath(key: key) else {
+            log("\(#function) 이미지 경로 생성 실패")
+            return
+        }
+            
+        concurrentQueue.async(flags: .barrier) { @Sendable [weak self] in
+            
+            guard let self else { return }
+            
+            let imageDirectoryPath = imageFilePath.deletingLastPathComponent()
+            
+            if diskCacheTracker.requestCheckDiskIsFull() {
+                
+                log("디스크 파일수가 50개를 초과하였음 삭제실행")
+                
+                // 이미지 파일 삭제
+                
+                let willRemoveList = diskCacheTracker.requestOldestMembers(count: 10)
+                
+                
+                willRemoveList.forEach { willRemoveKey in
+                    
+                    guard let stringPath = createImagePath(key: willRemoveKey)?.path else {
+                        log("\(#function) 이미지 경로 생성 실패")
+                        return
+                    }
+        
+                    if fileManager.fileExists(atPath: stringPath) {
+                        
+                        do {
+                            try fileManager.removeItem(atPath: stringPath)
+                            diskCacheTracker.requestDeleteMember(id: willRemoveKey)
+                            log("이미지 삭제 성공 \(stringPath)")
+                        } catch {
+                            log("\(stringPath) 이미지 삭제 실패 reason: \(error.localizedDescription)")
+                        }
+                    } else {
+                        log("\(stringPath) 파일이 존재하지 않음")
+                    }
+                }
+            } else {
+                
+                // 이미지 파일 생성
+                let imageFileCreationResult = fileManager.createFile(atPath: imageFilePath.path, contents: image.pngData())
+                
+                if imageFileCreationResult == true {
+                    
+                    diskCacheTracker.requestCreateMember(id: key, value: .now)
+                }
+                log("디스크에 이미지 생성 \(imageFileCreationResult ? "성공" : "실패") 경로: \(imageFilePath)")
+            }
+        }
     }
 }
