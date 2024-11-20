@@ -106,7 +106,7 @@ public final class SimpleImageProvider: SimpleImageProviderInterface {
         let maxDimensionInPixels = biggerLength * scale
         let downsampleOptions = [
             kCGImageSourceCreateThumbnailFromImageAlways: true,
-            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceShouldCacheImmediately: false,
             kCGImageSourceCreateThumbnailWithTransform: true,
             kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
         ] as CFDictionary
