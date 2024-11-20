@@ -17,18 +17,22 @@ public class SimpleUIImageView: @unchecked Sendable {
     
     public func setImage(url: String, size: CGSize?, fadeOutDuration: TimeInterval = 0.2) {
         
-        Task { [weak self] in
-            
-            guard let self else { return }
+        Task {
             
             let image = await SimpleImageProvider.shared
                 .requestImage(url: url, size: size)
             
             if let image, let imageView {
                 
-                await MainActor.run {
+                await MainActor.run { [weak imageView] in
                     
-                    UIView.transition(with: imageView, duration: fadeOutDuration) {
+                    guard let imageView else { return }
+                    
+                    UIView.transition(
+                        with: imageView,
+                        duration: fadeOutDuration,
+                        options: .transitionCrossDissolve
+                    ) {
                         
                         imageView.image = image
                     }

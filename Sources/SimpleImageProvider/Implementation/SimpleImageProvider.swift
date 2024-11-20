@@ -36,7 +36,7 @@ public final class SimpleImageProvider: @unchecked Sendable, SimpleImageProvider
         self.imageModifier = imageModifier
     }
     
-    func requestImage(url: String, size: CGSize?) async -> UIImage? {
+    public func requestImage(url: String, size: CGSize?) async -> UIImage? {
         
         // 메모리 캐싱 체크
         if let memoryCachedImage = await memoryCacher.requestImage(url: url, size: size) {
