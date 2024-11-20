@@ -12,11 +12,13 @@ class ImageLoader: @unchecked Sendable, ObservableObject {
     
     let url: String
     let size: CGSize?
-
-    init(url: String, size: CGSize?) {
+    let fadeOutduration: TimeInterval
+    
+    init(url: String, size: CGSize?, fadeOutduration: TimeInterval) {
         
         self.url = url
         self.size = size
+        self.fadeOutduration = fadeOutduration
         
         loadImage()
     }
@@ -30,9 +32,11 @@ class ImageLoader: @unchecked Sendable, ObservableObject {
             
             await MainActor.run { [weak self] in
                 
-                withAnimation {
+                guard let self else { return }
+                
+                withAnimation(.easeInOut(duration: fadeOutduration)) {
                     
-                    self?.uiImage = image
+                    uiImage = image
                 }
             }
         }
@@ -43,9 +47,10 @@ public struct SimpleImage: View {
     
     @StateObject var imageLoader: ImageLoader
     
-    public init(url: String, size: CGSize?) {
+    public init(url: String, size: CGSize?, fadeOutduration: TimeInterval = 0.2) {
         
-        self._imageLoader = StateObject(wrappedValue: ImageLoader(url: url, size: size))
+        let loader = ImageLoader(url: url, size: size, fadeOutduration: fadeOutduration)
+        self._imageLoader = StateObject(wrappedValue: loader)
     }
 
     public var body:  some View {

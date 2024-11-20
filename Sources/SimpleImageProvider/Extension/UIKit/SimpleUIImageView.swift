@@ -15,7 +15,7 @@ public class SimpleUIImageView: @unchecked Sendable {
         self.imageView = view
     }
     
-    public func setImage(url: String, size: CGSize?) {
+    public func setImage(url: String, size: CGSize?, fadeOutDuration: TimeInterval = 0.2) {
         
         Task { [weak self] in
             
@@ -28,7 +28,7 @@ public class SimpleUIImageView: @unchecked Sendable {
                 
                 await MainActor.run {
                     
-                    UIView.transition(with: imageView, duration: 0.2) {
+                    UIView.transition(with: imageView, duration: fadeOutDuration) {
                         
                         imageView.image = image
                     }
