@@ -1,5 +1,5 @@
 //
-//  ImageDownSampler.swift
+//  ImageModifier.swift
 //  SimpleImageProvider
 //
 //  Created by choijunios on 11/20/24.
@@ -7,7 +7,10 @@
 
 import UIKit
 
-protocol ImageDownSampler {
+protocol ImageModifier {
     
     func downSamplingImage(dataBuffer: Data, size: CGSize) async -> UIImage?
+    
+    
+    func convertDataToUIImage(data: Data) -> UIImage?
 }

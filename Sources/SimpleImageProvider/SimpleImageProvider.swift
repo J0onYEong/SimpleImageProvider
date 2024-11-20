@@ -16,15 +16,18 @@ public final class SimpleImageProvider: SimpleImageProviderInterface {
     private let memoryCacher: ImageCacher
     private let diskCacher: ImageCacher
     private let imageDownloader: ImageDownloader
+    private let imageModifier: ImageModifier
     
     init(
         memoryCacher: ImageCacher = MemeoryCacher(),
         diskCacher: ImageCacher = DiskCacher(diskCacheTracker: DefaultDiskCacheTracker()),
-        imageDownloader: ImageDownloader = DefaultImageDownloader()
+        imageDownloader: ImageDownloader = DefaultImageDownloader(),
+        imageModifier: ImageModifier = DefaultImageModifier()
     ) {
         self.memoryCacher = memoryCacher
         self.diskCacher = diskCacher
         self.imageDownloader = imageDownloader
+        self.imageModifier = imageModifier
     }
     
     func requestImage(url: String, size: CGSize?) async -> UIImage? {
@@ -58,7 +61,7 @@ public final class SimpleImageProvider: SimpleImageProviderInterface {
             
             // 이미지 다운 샘플링
             if let size {
-                let downSampledImage = await downSampleImage(dataBuffer: dataBuffer, size: size)
+                let downSampledImage = await imageModifier.downSamplingImage(dataBuffer: dataBuffer, size: size)
                 
                 log("이미지 다운 샘플링 완료")
                 
@@ -69,7 +72,7 @@ public final class SimpleImageProvider: SimpleImageProviderInterface {
                     
                     downloadedImage = image
                     
-                } else if let image = convertDataToUIImage(data: dataBuffer) {
+                } else if let image = imageModifier.convertDataToUIImage(data: dataBuffer) {
                     
                     // webp와 같은 미지원 타입
                     downloadedImage = image
@@ -90,51 +93,6 @@ public final class SimpleImageProvider: SimpleImageProviderInterface {
         }
         
         return nil
-    }
-    
-    private func downSampleImage(dataBuffer: Data, size: CGSize) async -> UIImage? {
-        
-        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-        
-        guard let imageSource = CGImageSourceCreateWithData(dataBuffer as CFData, imageSourceOptions) else {
-            
-            return nil
-        }
-        
-        let biggerLength = max(size.width, size.height)
-        let scale = await UIScreen.main.scale
-        let maxDimensionInPixels = biggerLength * scale
-        let downsampleOptions = [
-            kCGImageSourceCreateThumbnailFromImageAlways: true,
-            kCGImageSourceShouldCacheImmediately: false,
-            kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
-        ] as CFDictionary
-        
-        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions) else {
-            return nil
-        }
-        let image = UIImage(cgImage: downsampledImage)
-        
-        return image
-    }
-    
-    private func convertDataToUIImage(data: Data) -> UIImage? {
-        
-        // CGImageSource를 생성
-        guard let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else {
-            log("Failed to create image source")
-            return nil
-        }
-        
-        // CGImage 생성
-        guard let cgImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil) else {
-            log("Failed to create CGImage")
-            return nil
-        }
-        
-        // UIImage로 변환
-        return UIImage(cgImage: cgImage)
     }
 }
 
