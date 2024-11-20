@@ -9,8 +9,19 @@ import SwiftUI
 
 class ImageLoader: @unchecked Sendable, ObservableObject {
     @Published var uiImage: UIImage?
+    
+    let url: String
+    let size: CGSize?
 
     init(url: String, size: CGSize?) {
+        
+        self.url = url
+        self.size = size
+        
+        loadImage()
+    }
+    
+    func loadImage() {
         
         Task {
             
@@ -28,16 +39,16 @@ class ImageLoader: @unchecked Sendable, ObservableObject {
     }
 }
 
-struct UIImageToImageModifier: ViewModifier {
+public struct SimpleImage: View {
     
     @StateObject var imageLoader: ImageLoader
     
-    init(url: String, size: CGSize?) {
+    public init(url: String, size: CGSize?) {
         
         self._imageLoader = StateObject(wrappedValue: ImageLoader(url: url, size: size))
     }
 
-    func body(content: Content) -> some View {
+    public var body:  some View {
         
         if let uiImage = imageLoader.uiImage {
             
@@ -47,13 +58,7 @@ struct UIImageToImageModifier: ViewModifier {
             
         } else {
             
-            content
+            Text("")
         }
-    }
-}
-
-extension View {
-    func simpleImage(url: String, size: CGSize?) -> some View {
-        self.modifier(UIImageToImageModifier(url: url, size: size))
     }
 }

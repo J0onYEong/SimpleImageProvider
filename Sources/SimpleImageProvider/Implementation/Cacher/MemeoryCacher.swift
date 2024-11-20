@@ -11,8 +11,8 @@ final class MemeoryCacher: ImageCacher {
     
     private let cache: NSCache<NSString, UIImage> = .init()
     
-    init() {
-        cache.countLimit = 20
+    init(maxCacheCount: Int) {
+        cache.countLimit = maxCacheCount
     }
     
     func requestImage(url: String, size: CGSize?) async -> UIImage? {

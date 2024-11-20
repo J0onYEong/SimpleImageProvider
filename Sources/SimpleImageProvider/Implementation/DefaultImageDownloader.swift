@@ -22,6 +22,8 @@ final class DefaultImageDownloader: ImageDownloader {
             if let httpResponse = response as? HTTPURLResponse,
                (200..<300).contains(httpResponse.statusCode) {
                 
+                log("⬇️ 이미지 다운로드 완료")
+                
                 return data
             }
             

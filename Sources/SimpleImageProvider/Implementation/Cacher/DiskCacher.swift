@@ -23,8 +23,8 @@ final class DiskCacher: @unchecked Sendable, ImageCacher {
     
     init(
         diskCacheTracker: DefaultDiskCacheTracker,
-        maxFileCount: Int = 30,
-        fileCountForDeleteWhenOverflow: Int = 10
+        maxFileCount: Int,
+        fileCountForDeleteWhenOverflow: Int
     ) {
         self.diskCacheTracker = diskCacheTracker
         self.maxFileCount = maxFileCount

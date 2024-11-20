@@ -14,7 +14,7 @@ final class DefaultDiskCacheTracker: DiskCacheTracker {
     
     private var maxCount: Int
     
-    init(maxCount: Int = 30) {
+    init(maxCount: Int) {
         self.maxCount = maxCount
     }
     

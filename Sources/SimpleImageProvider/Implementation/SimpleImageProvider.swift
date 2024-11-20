@@ -8,7 +8,7 @@
 import UIKit
 
 enum Config {
-    static let presentLog = true
+    static let presentLog = false
 }
 
 public final class SimpleImageProvider: @unchecked Sendable, SimpleImageProviderInterface {
@@ -21,8 +21,12 @@ public final class SimpleImageProvider: @unchecked Sendable, SimpleImageProvider
     private let imageModifier: ImageModifier
     
     init(
-        memoryCacher: ImageCacher = MemeoryCacher(),
-        diskCacher: ImageCacher = DiskCacher(diskCacheTracker: DefaultDiskCacheTracker()),
+        memoryCacher: ImageCacher = MemeoryCacher(maxCacheCount: 50),
+        diskCacher: ImageCacher = DiskCacher(
+            diskCacheTracker: DefaultDiskCacheTracker(maxCount: 100),
+            maxFileCount: 100,
+            fileCountForDeleteWhenOverflow: 15
+        ),
         imageDownloader: ImageDownloader = DefaultImageDownloader(),
         imageModifier: ImageModifier = DefaultImageModifier()
     ) {
