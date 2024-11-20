@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MemeoryCacher: ImageCacher {
+final class MemeoryCacher: ImageCacher {
     
     private let cache: NSCache<NSString, UIImage> = .init()
     

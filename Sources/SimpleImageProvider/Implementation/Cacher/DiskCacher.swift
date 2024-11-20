@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 final class DiskCacher: @unchecked Sendable, ImageCacher {
     
     private let fileManager: FileManager = .init()

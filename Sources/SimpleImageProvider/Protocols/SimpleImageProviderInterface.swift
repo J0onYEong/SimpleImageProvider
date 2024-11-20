@@ -5,5 +5,5 @@ import UIKit
 
 protocol SimpleImageProviderInterface {
     
-    func requestImage(url: String, size: CGSize?) async -> UIImage
+    func requestImage(url: String, size: CGSize?) async -> UIImage?
 }

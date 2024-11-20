@@ -7,9 +7,9 @@
 
 import Foundation
 
-class DefaultImageDownloader: ImageDownloader {
+final class DefaultImageDownloader: ImageDownloader {
     
-    func requestImage(url: String) async -> Data? {
+    func requestImageData(url: String) async -> Data? {
         
         let url: URL = .init(string: url)!
         var urlRequest: URLRequest = .init(url: url)

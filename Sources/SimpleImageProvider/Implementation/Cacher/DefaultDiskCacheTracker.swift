@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DefaultDiskCacheTracker: DiskCacheTracker {
+final class DefaultDiskCacheTracker: DiskCacheTracker {
    
     typealias Key = String
     typealias Value = Date
