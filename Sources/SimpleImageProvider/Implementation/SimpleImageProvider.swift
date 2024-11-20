@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum Config {
+    static let presentLog = true
+}
+
 public final class SimpleImageProvider: SimpleImageProviderInterface {
     
     private let memoryCacher: ImageCacher
@@ -28,11 +32,15 @@ public final class SimpleImageProvider: SimpleImageProviderInterface {
         // 메모리 캐싱 체크
         if let memoryCachedImage = await memoryCacher.requestImage(url: url, size: size) {
             
+            log("메모리 캐싱 확인됨")
+            
             return memoryCachedImage
         }
         
         // 디스크 캐싱 체크
         if let diskCachedImage = await diskCacher.requestImage(url: url, size: size) {
+            
+            log("디스크 캐싱 확인됨")
             
             defer {
                 // 디스크에서 불러온 이미지를 메모리에 캐싱
@@ -51,6 +59,8 @@ public final class SimpleImageProvider: SimpleImageProviderInterface {
             // 이미지 다운 샘플링
             if let size {
                 let downSampledImage = await downSampleImage(dataBuffer: dataBuffer, size: size)
+                
+                log("이미지 다운 샘플링 완료")
                 
                 downloadedImage = downSampledImage
             } else {

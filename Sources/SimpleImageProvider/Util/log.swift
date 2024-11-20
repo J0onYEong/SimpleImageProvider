@@ -7,7 +7,7 @@
 
 func log(_ items: Any...) {
     
-    #if DEBUG
-    print(items)
-    #endif
+    if Config.presentLog {
+        print(items)
+    }
 }
