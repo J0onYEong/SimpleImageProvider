@@ -48,7 +48,7 @@ final class DiskCacher: @unchecked Sendable, ImageCacher {
     }
 }
 
-extension DiskCacher {
+private extension DiskCacher {
 
     func getImage(path: String) -> UIImage? {
         
@@ -159,8 +159,6 @@ extension DiskCacher {
         concurrentQueue.async(flags: .barrier) { @Sendable [weak self] in
             
             guard let self else { return }
-            
-            let imageDirectoryPath = imageFilePath.deletingLastPathComponent()
             
             if diskCacheTracker.requestCheckDiskIsFull() {
                 
