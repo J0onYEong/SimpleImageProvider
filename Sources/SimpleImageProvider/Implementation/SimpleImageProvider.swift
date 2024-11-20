@@ -11,7 +11,9 @@ enum Config {
     static let presentLog = true
 }
 
-public final class SimpleImageProvider: SimpleImageProviderInterface {
+public final class SimpleImageProvider: @unchecked Sendable, SimpleImageProviderInterface {
+    
+    static let shared: SimpleImageProvider = .init()
     
     private let memoryCacher: ImageCacher
     private let diskCacher: ImageCacher
