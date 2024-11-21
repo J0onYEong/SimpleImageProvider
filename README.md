@@ -7,7 +7,12 @@
 | **지원 iOS 버전** | iOS 15.0 이상             |
 | **사용한 기술**   | Swift, Swift Concurrency   |
   
-</table>
+
+## SimpeImageProvider 라이브러리를 사용중인 서비스
+
+| 항목            | 링크                       |
+|-----------------|----------------------------|
+| **케어밋** | [앱스토어](https://apps.apple.com/kr/app/%EC%BC%80%EC%96%B4%EB%B0%8B/id6670529341)             |
 
 ## how to use
 
@@ -94,6 +99,75 @@ await SimpleImageProvider.shared.requestImage(...)
   이미지 요청시 전달한 `CGSize`를 사용하여 전달 받은 이미지를 샘플링 합니다.
   
   ※ 샘플링이 완료된 이미지가 캐싱됩니다.
+
+### 사이즈 기반 이미지 캐싱
+
+디스크 및 메모리에 캐싱되는 이미지는 **다운 샘플링이 적용된 이미지가 캐싱**됩니다.
+
+동일한 이미지이지만 샘플링 결과에따라 다르게 캐싱을 진행합니다.
+
+아래 캐싱키 값에 다운샘플링 사이즈가 포함되는 것을 확인할 수 있습니다.
+
+```swift
+
+func createKey(url: String, size: CGSize?) -> String {
+    
+    var keyString = url
+    
+    if let size {
+        
+        let width = size.width
+        let height = size.height
+        
+        keyString += "\(width)x\(height)"
+    }
+    
+    return keyString
+}
+
+```
+
+### 다운 샘플링
+
+이미지 다운 샘플링은 다운로드 받은 데이터 버퍼를 `CGImageSource`로 변경합니다.
+
+`CGImageSource`를 특정 사이즈의 썸네일(원본보다 작은/축약된 이미지)로 변경하는 작업을 통해 다운 샘플링을 진행합니다.
+
+※ 이미지 캐싱을 직접관리하기 위해 이미지소스생성시와 썸네일 생성시 추가적인 캐싱옵션을 모두 해제했습니다.
+
+```swift
+
+func downSamplingImage(dataBuffer: Data, size: CGSize) async -> UIImage? {
+    
+    let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+    
+    guard let imageSource = CGImageSourceCreateWithData(dataBuffer as CFData,
+imageSourceOptions) else {
+        
+        return nil
+    }
+    
+    let biggerLength = max(size.width, size.height)
+    let scale = await UIScreen.main.scale
+    let maxDimensionInPixels = biggerLength * scale
+    let downsampleOptions = [
+        kCGImageSourceCreateThumbnailFromImageAlways: true,
+        kCGImageSourceShouldCacheImmediately: false,
+        kCGImageSourceCreateThumbnailWithTransform: true,
+        kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
+    ] as CFDictionary
+    
+    guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0,
+downsampleOptions) else {
+        return nil
+    }
+    let image = UIImage(cgImage: downsampledImage)
+    
+    return image
+}
+
+```
+
 
 ### 플로우 차트
 
