@@ -192,12 +192,12 @@ private extension DiskCacher {
                     count: fileCountForDeleteWhenOverflow
                 )
                 
-                
-                willRemoveList.forEach { willRemoveKey in
+                for willRemoveKey in willRemoveList {
                     
                     guard let stringPath = createImagePath(key: willRemoveKey)?.path else {
                         log("\(#function) 이미지 경로 생성 실패")
-                        return
+                        
+                        continue
                     }
         
                     if fileManager.fileExists(atPath: stringPath) {
