@@ -1,0 +1,35 @@
+version: "Apple Swift version 6.0.2 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)"
+options: "d3377ab2148d9fe4d9783ef092b70a1582c77161f18d5249cd109d6ca8706c83"
+build_start_time: [1732169408, 906176000]
+build_end_time: [1732169412, 116839000]
+inputs:
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Extension/SwiftUI/Image+Extension.swift"
+  : [1732169315, 863016319]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Extension/UIKit/SimpleUIImageView.swift"
+  : [1732156269, 660555690]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Extension/UIKit/UIImage+Extension.swift"
+  : [1732156270, 804479589]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/Cacher/DefaultDiskCacheTracker.swift"
+  : [1732113306, 327599175]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/Cacher/DiskCacher.swift"
+  : [1732169325, 315465509]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/Cacher/ImageCacher+Ex.swift"
+  : [1732096810, 872409793]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/Cacher/MemeoryCacher.swift"
+  : [1732167863, 444292184]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/DefaultImageDownloader.swift"
+  : [1732112491, 661716947]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/DefaultImageModifier.swift"
+  : [1732169147, 275485243]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/SimpleImageProvider.swift"
+  : [1732156785, 5099790]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/DiskCacheTracker.swift"
+  : [1732107964, 957931043]
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/ImageCacher.swift": [1732085842, 224192396]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/ImageDownloader.swift"
+  : [1732096904, 322549519]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/ImageModifier.swift"
+  : [1732108028, 116512506]
+  ? "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/SimpleImageProviderInterface.swift"
+  : [1732155626, 125672652]
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Util/log.swift": [1732097177, 876290423]

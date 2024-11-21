@@ -1,0 +1,90 @@
+{
+  "" : {
+    "const-values" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-master.swiftconstvalues",
+    "dependencies" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-master.d",
+    "diagnostics" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-master.dia",
+    "emit-module-dependencies" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-master-emit-module.dia",
+    "swift-dependencies" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-master.swiftdeps"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Extension/SwiftUI/Image+Extension.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/Image+Extension.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/Image+Extension.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/Image+Extension.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Extension/UIKit/SimpleUIImageView.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleUIImageView.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleUIImageView.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleUIImageView.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Extension/UIKit/UIImage+Extension.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/UIImage+Extension.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/UIImage+Extension.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/UIImage+Extension.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/Cacher/DefaultDiskCacheTracker.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DefaultDiskCacheTracker.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DefaultDiskCacheTracker.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DefaultDiskCacheTracker.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/Cacher/DiskCacher.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DiskCacher.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DiskCacher.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DiskCacher.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/Cacher/ImageCacher+Ex.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageCacher+Ex.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageCacher+Ex.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageCacher+Ex.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/Cacher/MemeoryCacher.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/MemeoryCacher.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/MemeoryCacher.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/MemeoryCacher.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/DefaultImageDownloader.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DefaultImageDownloader.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DefaultImageDownloader.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DefaultImageDownloader.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/DefaultImageModifier.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DefaultImageModifier.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DefaultImageModifier.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DefaultImageModifier.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Implementation/SimpleImageProvider.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/DiskCacheTracker.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DiskCacheTracker.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DiskCacheTracker.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/DiskCacheTracker.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/ImageCacher.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageCacher.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageCacher.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageCacher.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/ImageDownloader.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageDownloader.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageDownloader.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageDownloader.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/ImageModifier.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageModifier.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageModifier.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/ImageModifier.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Protocols/SimpleImageProviderInterface.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProviderInterface.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProviderInterface.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProviderInterface.o"
+  },
+  "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Util/log.swift" : {
+    "index-unit-output-path" : "/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/log.o",
+    "llvm-bc" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/log.bc",
+    "object" : "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/log.o"
+  }
+}

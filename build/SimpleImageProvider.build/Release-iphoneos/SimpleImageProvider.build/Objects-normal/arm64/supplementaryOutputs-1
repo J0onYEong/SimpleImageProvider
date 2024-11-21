@@ -1,0 +1,9 @@
+"/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/Sources/SimpleImageProvider/Extension/SwiftUI/Image+Extension.swift":
+  swiftmodule: "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider.swiftmodule"
+  dependencies: "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-master.d"
+  diagnostics: "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-master.dia"
+  swiftsourceinfo: "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider.swiftsourceinfo"
+  abi-baseline-json: "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider.abi.json"
+  const-values: "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-master.swiftconstvalues"
+  swiftdoc: "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider.swiftdoc"
+  objc-header: "/Users/choejun-yeong/Development/Projects/iOS/MyLib/SimpleImageProvider/build/SimpleImageProvider.build/Release-iphoneos/SimpleImageProvider.build/Objects-normal/arm64/SimpleImageProvider-Swift.h"

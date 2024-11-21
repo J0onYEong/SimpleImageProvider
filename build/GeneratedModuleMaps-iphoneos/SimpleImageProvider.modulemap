@@ -1,0 +1,4 @@
+module SimpleImageProvider {
+header "SimpleImageProvider-Swift.h"
+export *
+}
