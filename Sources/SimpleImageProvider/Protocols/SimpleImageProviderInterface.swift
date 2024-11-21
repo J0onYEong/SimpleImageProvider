@@ -6,4 +6,11 @@ import UIKit
 protocol SimpleImageProviderInterface {
     
     func requestImage(url: String, size: CGSize?) async -> UIImage?
+    
+    
+    func requestConfigureState(
+        maxCacheImageCount: Int,
+        maxDiskImageCount: Int,
+        percentToDeleteWhenDiskOverflow: Float
+    )
 }
