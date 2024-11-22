@@ -19,11 +19,12 @@ class ImageLoader: @unchecked Sendable, ObservableObject {
         self.url = url
         self.size = size
         self.fadeOutduration = fadeOutduration
-        
-        loadImage()
     }
     
     func loadImage() {
+        
+        // 기존 이미지를 초기화
+        uiImage = nil
         
         Task {
             
@@ -60,10 +61,13 @@ public struct SimpleImage: View {
             Image(uiImage: uiImage)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-            
         } else {
             
             Text("")
+                .onAppear {
+                    
+                    imageLoader.loadImage()
+                }
         }
     }
 }
