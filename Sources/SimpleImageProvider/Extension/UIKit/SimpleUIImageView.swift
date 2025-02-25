@@ -7,35 +7,18 @@
 
 import UIKit
 
-public class SimpleUIImageView: @unchecked Sendable {
-    
-    private weak var imageView: UIImageView?
-    
-    init(view: UIImageView) {
-        self.imageView = view
-    }
-    
-    public func setImage(url: String, size: CGSize?, fadeOutDuration: TimeInterval = 0.2) {
-        
+public extension UIImageView {
+    func load(url: String, size: CGSize?, fadeOutDuration: TimeInterval = 0.2) {
         Task {
-            
-            let image = await DefaultImageProvider.shared
+            let loadedImage = await DefaultImageProvider.shared
                 .requestImage(url: url, size: size)
-            
-            if let image, let imageView {
-                
-                await MainActor.run { [weak imageView] in
-                    
-                    guard let imageView else { return }
-                    
+            if let loadedImage {
+                await MainActor.run {
                     UIView.transition(
-                        with: imageView,
+                        with: self,
                         duration: fadeOutDuration,
                         options: .transitionCrossDissolve
-                    ) {
-                        
-                        imageView.image = image
-                    }
+                    ) { self.image = loadedImage }
                 }
             }
         }
