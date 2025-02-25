@@ -26,7 +26,8 @@ final class DefaultDiskCacheTracker: CacheTracker {
     }
     
     private func saveCurrentDict() {
-        source.set(diskCacheInfo.dictionary, forKey: dictKey)
+        let dict = diskCacheInfo.dictionary
+        source.set(dict, forKey: dictKey)
     }
 }
 

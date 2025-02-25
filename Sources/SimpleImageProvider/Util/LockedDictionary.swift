@@ -14,8 +14,7 @@ public final class LockedDictionary<Key, Value> where Key: Hashable {
     private var source: Source = [:]
     
     private let queue = DispatchQueue(
-        label: "com.lockeddictionary.concurrentQueue",
-        attributes: .concurrent
+        label: "com.lockeddictionary.concurrentQueue"
     )
     
     public var isEmpty: Bool {
@@ -41,14 +40,14 @@ public final class LockedDictionary<Key, Value> where Key: Hashable {
             queue.sync { source[key] }
         }
         set(newValue) {
-            queue.async(flags: .barrier) { [weak self] in
+            queue.async { [weak self] in
                 self?.source[key] = newValue
             }
         }
     }
     
     public func remove(key: Key) {
-        queue.async(flags: .barrier) { [weak self] in
+        queue.async { [weak self] in
             self?.source.removeValue(forKey: key)
         }
     }

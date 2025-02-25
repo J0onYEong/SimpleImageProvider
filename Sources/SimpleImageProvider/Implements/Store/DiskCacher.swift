@@ -10,10 +10,7 @@ import UIKit
 final class DiskCacher: ImageCacher {
     
     private let fileManager: FileManager = .init()
-    private let concurrentQueue: DispatchQueue = .init(
-        label: "com.DiskCacher",
-        attributes: .concurrent
-    )
+    private let concurrentQueue: DispatchQueue = .init(label: "com.DiskCacher")
     
     private let maxFileCount: Int
     private let fileCountForDeleteWhenOverflow: Int
@@ -57,7 +54,7 @@ extension DiskCacher {
 // MARK: File management
 private extension DiskCacher {
     func createCacheDirectory() {
-        concurrentQueue.async(flags: .barrier) { [weak self] in
+        concurrentQueue.async { [weak self] in
             guard let self else { return }
             guard var cacheDictionaryPath = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
                 return
@@ -120,7 +117,7 @@ private extension DiskCacher {
         guard let imageFilePath = createImagePath(key: key) else {
             return
         }
-        concurrentQueue.async(flags: .barrier) { @Sendable [weak self] in
+        concurrentQueue.async { @Sendable [weak self] in
             guard let self else { return }
             if diskCacheTracker.checkDiskIsFull() {
                 // 이미지 파일 삭제

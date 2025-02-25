@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct SimpleImage: View {
     // Source of truth
-    @StateObject var imageSource: ImageSource
+    @StateObject private var imageSource: ImageSource
     
     public init(url: String, size: CGSize?, fadeOutduration: TimeInterval = 0.2) {
         let source = ImageSource(
@@ -20,7 +20,7 @@ public struct SimpleImage: View {
         self._imageSource = StateObject(wrappedValue: source)
     }
 
-    public var body:  some View {
+    public var body: some View {
         if let loadedImage = imageSource.image {
             Image(uiImage: loadedImage)
                 .resizable()

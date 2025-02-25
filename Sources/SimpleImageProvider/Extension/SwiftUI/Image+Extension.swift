@@ -9,7 +9,7 @@ import SwiftUI
 
 class ImageSource: @unchecked Sendable, ObservableObject {
     // State
-    @Published var image: UIImage?
+    @Published private(set) var image: UIImage?
     
     // Config
     private let url: String
