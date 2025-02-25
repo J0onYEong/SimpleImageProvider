@@ -20,7 +20,7 @@ struct ImageProviderTests {
         let maxFileCount = 50
         let diskCacheTracker = DefaultDiskCacheTracker(maxCount: maxFileCount)
         diskCacheTracker.clearStore()
-        let diskCacher = DefaultDiskCacher(
+        let diskCacher = DiskCacher(
             diskCacheTracker: diskCacheTracker,
             maxFileCount: maxFileCount,
             fileCountForDeleteWhenOverflow: 5
@@ -62,7 +62,7 @@ struct ImageProviderTests {
         let maxFileCount = 10
         let diskCacheTracker = DefaultDiskCacheTracker(maxCount: maxFileCount)
         diskCacheTracker.clearStore()
-        let diskCacher = DefaultDiskCacher(
+        let diskCacher = DiskCacher(
             diskCacheTracker: diskCacheTracker,
             maxFileCount: maxFileCount,
             fileCountForDeleteWhenOverflow: 5

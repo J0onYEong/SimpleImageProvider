@@ -1,5 +1,5 @@
 //
-//  DefaultDiskCacher.swift
+//  DiskCacher.swift
 //  SimpleImageProvider
 //
 //  Created by choijunios on 2/7/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DefaultDiskCacher: ImageCacher {
+final class DiskCacher: ImageCacher {
     
     private let fileManager: FileManager = .init()
     private let concurrentQueue: DispatchQueue = .init(
@@ -36,7 +36,7 @@ final class DefaultDiskCacher: ImageCacher {
 
 
 // MARK: ImageCacher
-extension DefaultDiskCacher {
+extension DiskCacher {
     func requestImage(url: String, size: CGSize?) async -> UIImage? {
         let key = createKey(url: url, size: size)
         guard let imageFilePath = createImagePath(key: key) else {
@@ -55,7 +55,7 @@ extension DefaultDiskCacher {
 
 
 // MARK: File management
-private extension DefaultDiskCacher {
+private extension DiskCacher {
     func createCacheDirectory() {
         concurrentQueue.async(flags: .barrier) { [weak self] in
             guard let self else { return }

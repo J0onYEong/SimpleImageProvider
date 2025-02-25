@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class DefaultImageProvider: ImageProvider {
+final public class DefaultImageProvider: ImageProvider {
     
     // Dependency
     private var memoryCacher: ImageCacher
@@ -18,9 +18,9 @@ final class DefaultImageProvider: ImageProvider {
     
     
     // Singleton
-    static let shared: DefaultImageProvider = .init(
-        memoryCacher: DefaultMemeoryCacher(maxCacheCount: 50),
-        diskCacher: DefaultDiskCacher(
+    public static let shared: DefaultImageProvider = .init(
+        memoryCacher: MemeoryCacher(maxCacheCount: 50),
+        diskCacher: DiskCacher(
             diskCacheTracker: DefaultDiskCacheTracker(maxCount: 100),
             maxFileCount: 100,
             fileCountForDeleteWhenOverflow: 15
@@ -29,7 +29,7 @@ final class DefaultImageProvider: ImageProvider {
         imageModifier: DefaultImageModifier()
     )
     
-    private init(
+    public init(
         memoryCacher: ImageCacher,
         diskCacher: ImageCacher,
         imageDownloader: ImageDownloader,
@@ -44,7 +44,7 @@ final class DefaultImageProvider: ImageProvider {
 
 
 // MARK: ImageProvider
-extension DefaultImageProvider {
+public extension DefaultImageProvider {
     func requestImage(url: String, size: CGSize?) -> AnyPublisher<UIImage?, Never> {
         Future { promise in
             Task { [weak self] in
