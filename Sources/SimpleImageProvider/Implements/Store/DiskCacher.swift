@@ -7,10 +7,8 @@
 
 import UIKit
 
-final class DiskCacher: ImageCacher {
-    
+final actor DiskCacher: ImageCacher {
     private let fileManager: FileManager = .init()
-    private let concurrentQueue: DispatchQueue = .init(label: "com.DiskCacher")
     
     private let maxFileCount: Int
     private let fileCountForDeleteWhenOverflow: Int
@@ -40,13 +38,13 @@ extension DiskCacher {
             return nil
         }
         let image = loadImage(path: imageFilePath.path)
-        diskCacheTracker.updateMember(id: key, value: .now)
+        await diskCacheTracker.updateMember(id: key, value: .now)
         return image
     }
     
-    func cacheImage(url: String, size: CGSize?, image: UIImage) {
-        let key = createKey(url: url, size: size)
-        cacheImageFileToDisk(key: key, image: image)
+    func cacheImage(url: String, size: CGSize?, image: UIImage) async {
+        let key = await createKey(url: url, size: size)
+        await cacheImageFileToDisk(key: key, image: image)
     }
 }
 
@@ -54,38 +52,33 @@ extension DiskCacher {
 // MARK: File management
 private extension DiskCacher {
     func createCacheDirectory() {
-        concurrentQueue.async { [weak self] in
-            guard let self else { return }
-            guard var cacheDictionaryPath = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-                return
-            }
-            
-            cacheDictionaryPath = cacheDictionaryPath.appendingPathComponent("CachedDiskImage")
-            if !fileManager.fileExists(atPath: cacheDictionaryPath.path) {
-                try? fileManager.createDirectory(at: cacheDictionaryPath, withIntermediateDirectories: true)
-            }
+        guard var cacheDictionaryPath = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        
+        cacheDictionaryPath = cacheDictionaryPath.appendingPathComponent("CachedDiskImage")
+        if !fileManager.fileExists(atPath: cacheDictionaryPath.path) {
+            try? fileManager.createDirectory(at: cacheDictionaryPath, withIntermediateDirectories: true)
         }
     }
 
     func loadImage(path: String) -> UIImage? {
-        concurrentQueue.sync {
-            guard let data = fileManager.contents(atPath: path) else {
-                return nil
-            }
-            
-            if let image = UIImage(data: data) {
-                return image
-            }
-            
-            guard let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else {
-                return nil
-            }
-                        
-            guard let cgImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil) else {
-                return nil
-            }
-            return UIImage(cgImage: cgImage)
+        guard let data = fileManager.contents(atPath: path) else {
+            return nil
         }
+        
+        if let image = UIImage(data: data) {
+            return image
+        }
+        
+        guard let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else {
+            return nil
+        }
+                    
+        guard let cgImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil) else {
+            return nil
+        }
+        return UIImage(cgImage: cgImage)
     }
     
     func createImagePath(key: String) -> URL? {
@@ -113,31 +106,28 @@ private extension DiskCacher {
     }
     
     
-    func cacheImageFileToDisk(key: String, image: UIImage) {
+    func cacheImageFileToDisk(key: String, image: UIImage) async {
         guard let imageFilePath = createImagePath(key: key) else {
             return
         }
-        concurrentQueue.async { @Sendable [weak self] in
-            guard let self else { return }
-            if diskCacheTracker.checkDiskIsFull() {
-                // 이미지 파일 삭제
-                let willRemoveList = diskCacheTracker.loadOldestMembers(count: fileCountForDeleteWhenOverflow)
-                for willRemoveKey in willRemoveList {
-                    guard let stringPath = createImagePath(key: willRemoveKey)?.path else {
-                        continue
-                    }
-                    if fileManager.fileExists(atPath: stringPath) {
-                        try? fileManager.removeItem(atPath: stringPath)
-                        diskCacheTracker.deleteMember(id: willRemoveKey)
-                    }
+        if await diskCacheTracker.checkDiskIsFull() {
+            // 이미지 파일 삭제
+            let willRemoveList = await diskCacheTracker.loadOldestMembers(count: fileCountForDeleteWhenOverflow)
+            for willRemoveKey in willRemoveList {
+                guard let stringPath = createImagePath(key: willRemoveKey)?.path else {
+                    continue
+                }
+                if fileManager.fileExists(atPath: stringPath) {
+                    try? fileManager.removeItem(atPath: stringPath)
+                    await diskCacheTracker.deleteMember(id: willRemoveKey)
                 }
             }
-            
-            // 공간확보후 이미지 파일 생성
-            let imageFileCreationResult = fileManager.createFile(atPath: imageFilePath.path, contents: image.pngData())
-            if imageFileCreationResult == true {
-                diskCacheTracker.createMember(id: key, value: .now)
-            }
+        }
+        
+        // 공간확보후 이미지 파일 생성
+        let imageFileCreationResult = fileManager.createFile(atPath: imageFilePath.path, contents: image.pngData())
+        if imageFileCreationResult == true {
+            await diskCacheTracker.createMember(id: key, value: .now)
         }
     }
 }

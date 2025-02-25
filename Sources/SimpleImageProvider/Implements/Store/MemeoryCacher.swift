@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MemeoryCacher: ImageCacher {
+final actor MemeoryCacher: ImageCacher {
     // NSCache store
     private let cache: NSCache<NSString, UIImage> = .init()
     
@@ -24,7 +24,7 @@ extension MemeoryCacher {
         return cache.object(forKey: key)
     }
     
-    func cacheImage(url: String, size: CGSize?, image: UIImage) {
+    func cacheImage(url: String, size: CGSize?, image: UIImage) async {
         let key: NSString = .init(string: createKey(url: url, size: size))
         cache.setObject(image, forKey: key)
     }

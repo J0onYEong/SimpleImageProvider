@@ -65,10 +65,8 @@ public extension DefaultImageProvider {
         }
         // 디스크 캐싱 체크
         if let diskCachedImage = await diskCacher.requestImage(url: url, size: size) {
-            defer {
-                // 디스크 정보를 메모리에 캐싱
-                memoryCacher.cacheImage(url: url, size: size, image: diskCachedImage)
-            }
+            // 디스크 정보를 메모리에 캐싱
+            await memoryCacher.cacheImage(url: url, size: size, image: diskCachedImage)
             return diskCachedImage
         }
         
@@ -91,8 +89,8 @@ public extension DefaultImageProvider {
             }
             
             // 다운로드한 이미지를 디스크, 메모리 캐싱에 등록
-            [memoryCacher, diskCacher].forEach { cacher in
-                cacher.cacheImage(url: url, size: size, image: downloadedImage)
+            for cacher in [memoryCacher, diskCacher] {
+                await cacher.cacheImage(url: url, size: size, image: downloadedImage)
             }
             return downloadedImage
         }

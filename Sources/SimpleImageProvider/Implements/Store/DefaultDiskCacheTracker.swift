@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DefaultDiskCacheTracker: CacheTracker {
+final actor DefaultDiskCacheTracker: CacheTracker {
     typealias Key = String
     typealias Value = Date
     
@@ -18,7 +18,7 @@ final class DefaultDiskCacheTracker: CacheTracker {
     // Check store
     private let source: UserDefaults = .init()
     private let dictKey = "DefaultDiskCacheTracker_dict"
-    private let diskCacheInfo: LockedDictionary<Key, Value> = .init()
+    private var diskCacheInfo: [Key: Value] = [:]
     
     
     init(maxCount: Int) {
@@ -26,8 +26,7 @@ final class DefaultDiskCacheTracker: CacheTracker {
     }
     
     private func saveCurrentDict() {
-        let dict = diskCacheInfo.dictionary
-        source.set(dict, forKey: dictKey)
+        source.set(diskCacheInfo, forKey: dictKey)
     }
 }
 
@@ -43,7 +42,7 @@ extension DefaultDiskCacheTracker {
     }
     
     func loadOldestMembers(count: Int) -> [String] {
-        let sortedInfo = diskCacheInfo.dictionary.sorted { $0.value < $1.value }
+        let sortedInfo = diskCacheInfo.sorted { $0.value < $1.value }
         if sortedInfo.count <= count {
             return sortedInfo.map({ $0.key })
         }
@@ -65,7 +64,7 @@ extension DefaultDiskCacheTracker {
     }
     
     func deleteMember(id: String) {
-        diskCacheInfo.remove(key: id)
+        diskCacheInfo.removeValue(forKey: id)
         saveCurrentDict()
     }
 }

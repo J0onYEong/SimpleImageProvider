@@ -24,7 +24,7 @@ public protocol ImageDownloader {
 // MARK: ImageCacher
 public protocol ImageCacher {
     func requestImage(url: String, size: CGSize?) async -> UIImage?
-    func cacheImage(url: String, size: CGSize?, image: UIImage)
+    func cacheImage(url: String, size: CGSize?, image: UIImage) async
 }
 
 
@@ -32,13 +32,13 @@ public protocol ImageCacher {
 public protocol CacheTracker {
     associatedtype Key: Hashable
     associatedtype Value
-    func clearStore()
-    func checkDiskIsFull() -> Bool
-    func loadOldestMembers(count: Int) -> [Key]
-    func createMember(id: Key, value: Value)
-    func loadMember(id: Key) -> Value?
-    func updateMember(id: Key, value: Value)
-    func deleteMember(id: Key)
+    func clearStore() async
+    func checkDiskIsFull() async -> Bool
+    func loadOldestMembers(count: Int) async -> [Key]
+    func createMember(id: Key, value: Value) async
+    func loadMember(id: Key) async -> Value?
+    func updateMember(id: Key, value: Value) async
+    func deleteMember(id: Key) async
 }
 
 
