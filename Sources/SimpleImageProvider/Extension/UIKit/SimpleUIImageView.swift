@@ -19,7 +19,7 @@ public class SimpleUIImageView: @unchecked Sendable {
         
         Task {
             
-            let image = await SimpleImageProvider.shared
+            let image = await DefaultImageProvider.shared
                 .requestImage(url: url, size: size)
             
             if let image, let imageView {

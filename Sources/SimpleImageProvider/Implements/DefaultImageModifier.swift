@@ -2,26 +2,23 @@
 //  DefaultImageModifier.swift
 //  SimpleImageProvider
 //
-//  Created by choijunios on 11/20/24.
+//  Created by choijunios on 2/7/25.
 //
 
 import UIKit
 
-class DefaultImageModifier: ImageModifier {
+final class DefaultImageModifier: ImageModifier {
     
     init() { }
     
     func convertDataToUIImage(data: Data) -> UIImage? {
-        
         // CGImageSource를 생성
         guard let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else {
-            log("Failed to create image source")
             return nil
         }
         
         // CGImage 생성
         guard let cgImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil) else {
-            log("Failed to create CGImage")
             return nil
         }
         
@@ -30,11 +27,9 @@ class DefaultImageModifier: ImageModifier {
     }
     
     func downSamplingImage(dataBuffer: Data, size: CGSize) async -> UIImage? {
-        
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         
         guard let imageSource = CGImageSourceCreateWithData(dataBuffer as CFData, imageSourceOptions) else {
-            
             return nil
         }
         

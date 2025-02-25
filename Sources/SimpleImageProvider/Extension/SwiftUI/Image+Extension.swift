@@ -28,16 +28,13 @@ class ImageLoader: @unchecked Sendable, ObservableObject {
         
         Task {
             
-            let image = await SimpleImageProvider.shared
+            let image = await DefaultImageProvider.shared
                 .requestImage(url: url, size: size)
             
             await MainActor.run { [weak self] in
-                
                 guard let self else { return }
-                
                 withAnimation(.easeInOut(duration: fadeOutduration)) {
-                    
-                    uiImage = image
+                    self.uiImage = image
                 }
             }
         }
