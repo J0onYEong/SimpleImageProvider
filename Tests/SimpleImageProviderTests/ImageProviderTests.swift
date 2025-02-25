@@ -19,7 +19,7 @@ struct ImageProviderTests {
         //Given
         let maxFileCount = 50
         let diskCacheTracker = DefaultDiskCacheTracker(maxCount: maxFileCount)
-        diskCacheTracker.clearStore()
+        await diskCacheTracker.clearStore()
         let diskCacher = DiskCacher(
             diskCacheTracker: diskCacheTracker,
             maxFileCount: maxFileCount,
@@ -36,7 +36,7 @@ struct ImageProviderTests {
                     let testURL = "\(baseURLForKey)/\(index)"
                     // 실제이미지를 사용하지 않고 시스템 이미지를 사용한다.
                     let testImage = UIImage(systemName: "square.and.arrow.up")!
-                    diskCacher.cacheImage(url: testURL, size: nil, image: testImage)
+                    await diskCacher.cacheImage(url: testURL, size: nil, image: testImage)
                 }
             }
             await group.waitForAll()
@@ -61,7 +61,7 @@ struct ImageProviderTests {
         // Given
         let maxFileCount = 10
         let diskCacheTracker = DefaultDiskCacheTracker(maxCount: maxFileCount)
-        diskCacheTracker.clearStore()
+        await diskCacheTracker.clearStore()
         let diskCacher = DiskCacher(
             diskCacheTracker: diskCacheTracker,
             maxFileCount: maxFileCount,
@@ -75,7 +75,7 @@ struct ImageProviderTests {
         for index in 0..<15 {
             let url = "\(baseURLForKey)/\(index)"
             let tempImage: UIImage = UIImage(systemName: "square.and.arrow.up")!
-            diskCacher.cacheImage(url: url, size: nil, image: tempImage)
+            await diskCacher.cacheImage(url: url, size: nil, image: tempImage)
             try await Task.sleep(nanoseconds: 100_000_000)
         }
         
