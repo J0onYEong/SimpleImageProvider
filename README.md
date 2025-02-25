@@ -14,6 +14,7 @@
 | 항목            | 링크                       |
 |-----------------|----------------------------|
 | **케어밋** | [앱스토어](https://apps.apple.com/kr/app/%EC%BC%80%EC%96%B4%EB%B0%8B/id6670529341)             |
+| **soma코인뷰어** | [깃허브](https://github.com/SW-Maestro-OSS/soma-coin-viewer-ios)             |
 
 ## how to use
 
