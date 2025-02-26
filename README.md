@@ -80,7 +80,7 @@ UI라이브러리가 아닌 코드로 접근하는 경우 싱글톤 객체를 �
 싱글톤 객체 자체는 동시성에 최적화되어 있습니다.
 
 ```swift
-await SimpleImageProvider.shared.requestImage(...)
+await DefaultImageProvider.shared.requestImage(...)
 ```
 
 ## Tech features
