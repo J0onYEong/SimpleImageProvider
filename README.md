@@ -44,19 +44,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 **SwiftUI**에서 사용가능한 `SimpleImage View`가 구현되어 있습니다.
 
+내부적으로 `StateObject`를 가지는 구조체로 이미지에 대한 **source of truth**역할을 수행합니다.
+
 ```swift
 LazyVGrid(columns: columns) {
-    
     ForEach(items, id: \.self) { item in
-        
         SimpleImage(
-            url:"your image url",
-            size: .init(width: 100, height: 100),
-            fadeOutduration: 0
+            url: "url",
+            size: .init(width: 100, height: 100)
         )
-            .frame(width: 100, height: 100)
-            .background(Color.gray.opacity(0.5))
-            .cornerRadius(5)
+        .background(Color.gray.opacity(0.5))
+        .cornerRadius(5)
     }
 }
 ```
@@ -65,15 +63,11 @@ LazyVGrid(columns: columns) {
 
 ### UIkit 코드
 
-UIImageView의 확장자로 간편하게 접근이 가능합니다.
+UIKit의 경우 익스텐션을 통해 구현된 함수를 사용할 수 있습니다.
 
 ```swift
-func setImage(url: String, size: CGSize) {
-    
-    uiImageView
-        .simple
-        .setImage(url: url, size: size, fadeOutDuration: 0.2)
-}
+uiImageView
+    .load(url: url, size: size, fadeOutDuration: 0.2)
 ```
 
 <img src="https://github.com/user-attachments/assets/3dda85be-6a96-4017-86af-9b66c7dd7bfc" width=300 />
